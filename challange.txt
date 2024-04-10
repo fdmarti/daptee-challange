@@ -1,0 +1,20 @@
+Tareas a realizar
+Se requiere realizar una estructura básica de un software de gestión interno para una empresa. El mismo debe contar con las siguientes características a nivel estructura:
+Pantalla de Login. La misma debe estar dividida en 2 a su ancho. Sobre la mitad izquierda, el formulario de Login. Sobre la mitad derecha, una imagen o textura de fondo.
+Una vez logueado, armar una estructura que contenga un panel izquierdo de menú, que tenga arriba el logo adjuntado en este correo, en formato SVG y debajo las opciones de menú; un encabezado sobre la derecha que contenga un buscador, y un icono con el nombre del usuario logueado, y debajo el contenido de cada módulo.
+Funcionalidades que debe presentar el software
+Debe tener funcionalidad el login. El mismo deberá aceptar ingreso con:
+Usuario: Daptee
+Password: Daptee2024
+Cualquier otro dato debe arrojar error.
+El menú debe contener 2 módulos. "Usuarios" y "Productos". Al ingresar a usuarios, se debe visualizar en el contenido de la estructura que respecta al módulo en cuestión, un listado de usuarios. Lo mismo para el módulo de productos.
+Para obtener el listado de usuarios y de productos, utilizar una API online (puede ser mockapi, JSONPlaceholder, etc)
+El buscador del header debe permitir escribir y filtrar los resultados, según el módulo en el que se está. Si se está en usuarios, el buscador debe accionar sobre usuarios. Lo mismo si se esta sobre productos.
+En cada ítem del listado (usuarios y productos) poner un botón de "3 puntitos" con las opciones de ver y eliminar. El ver debe levantar un popup mostrando la información. El eliminar debe quitar del listado el elemento. Si se refresca la pantalla, la api vuelve a traer los datos eliminados.
+En el icono/nombre del usuario logueado, desplegar un menú que diga "mi cuenta" y "cerrar sesión". Solo hacer funcionar el botón de cerrar sesión. El mismo debe llevarte a la pantalla de login luego de quitar la session.
+
+ACLARACIONES DE FUNCIONALIDAD
+Una vez logueado, por ejemplo, dentro del módulo de usuarios, si refresco la pantalla, debe reconocerse que estoy logueado y mantenerse en pantalla de usuarios. Lo mismo una vez haya cerrado sesión.
+Serán considerados cualquier agregado para optimizar el funcionamiento / mejorar la experiencia de usuario que cada uno considere apropiado
+Especificaciones técnicas requeridas
+Se debe realizar el desarrollo con Vue3 y Nuxt3. Se debe utilizar Composition API. Para el estilo, se puede utilizar Vuetify, o TailwindCSS, a gusto de cada uno. Además, es necesario codificar en TypeScript.
