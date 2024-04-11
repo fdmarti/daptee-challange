@@ -1,3 +1,4 @@
+import { useUsersStore } from '../../../store/usersStore';
 <template>
 	<div class="flex gap-2">
 		<PaginationButton numPage="<" @click="previousPage" />
@@ -11,5 +12,9 @@
 	</div>
 </template>
 <script lang="ts" setup>
-	const { pages, currentPage, nextPage, previousPage, gotToPage } = useUsers();
+	import { useUsersStore } from '../../../store';
+
+	const userStore = useUsersStore();
+	const { gotToPage, nextPage, previousPage } = userStore;
+	const { pages, currentPage } = storeToRefs(userStore);
 </script>

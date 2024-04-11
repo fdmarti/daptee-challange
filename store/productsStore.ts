@@ -1,5 +1,5 @@
 import { Products } from '../interface';
-import { useInterface } from '../composables';
+import { handleAlerts, handleGetProducts } from '../utils';
 
 export const useProductStore = defineStore('products', {
 	state: () => ({
@@ -15,25 +15,21 @@ export const useProductStore = defineStore('products', {
 	}),
 
 	actions: {
-		async getProducts() {
+		async getProducts(): void {
 			this.isLoading = true;
 
 			try {
-				const config = useRuntimeConfig();
-
-				const data = await $fetch(`${config.app.NUXT_API_ULR}/Products`);
-				this.Products = data;
+				this.Products = await handleGetProducts();
 				await this.setProductsByFilters();
-
-				this.isLoading = false;
 			} catch (error) {
-				const { setMessage } = useInterface();
+				const { setMessage } = handleAlerts();
 				setMessage('Failed to load', 'error');
-				this.isLoading = false;
 			}
+
+			this.isLoading = false;
 		},
 
-		setProductsByFilters(filter: string = '') {
+		setProductsByFilters(filter: string = ''): void {
 			const lowerCaseFilterWord = filter.toLowerCase();
 			this.valueFilter = lowerCaseFilterWord;
 
@@ -54,35 +50,35 @@ export const useProductStore = defineStore('products', {
 			this.loadProductsPerPage();
 		},
 
-		deleteProduct(id: string) {
+		deleteProduct(id: string): void {
 			this.Products = this.Products.filter((product) => {
 				if (product.id !== id) return product;
 			});
-			const { setMessage } = useInterface();
+			const { setMessage } = handleAlerts();
 			setMessage('Product deleted', 'success');
 			this.setProductsByFilters(this.valueFilter);
 		},
 
-		loadProductsPerPage() {
+		loadProductsPerPage(): void {
 			const startIndex = (this.currentPage - 1) * this.ProductsPerPage;
 			const endIndex = startIndex + this.ProductsPerPage;
 
 			this.showedProducts = this.filteredProducts.slice(startIndex, endIndex);
 		},
 
-		nextPage() {
+		nextPage(): void {
 			if (this.currentPage + 1 > this.pages) return;
 			this.currentPage++;
 			this.loadProductsPerPage();
 		},
 
-		previousPage() {
+		previousPage(): void {
 			if (this.currentPage === 1) return;
 			this.currentPage--;
 			this.loadProductsPerPage();
 		},
 
-		gotToPage(page: number) {
+		gotToPage(page: number): void {
 			this.currentPage = page;
 			this.loadProductsPerPage();
 		},

@@ -8,7 +8,9 @@
 				</button>
 			</div>
 			<hr />
-			<div class="mt-5 flex justify-center gap-4 flex-col md:flex-row items-center" >
+			<div
+				class="mt-5 flex justify-center gap-4 flex-col md:flex-row items-center"
+			>
 				<ProfilePictureProduct :profilePicture="picture" :name="name" />
 				<section class="border-l-[1px] p-2 max-w-[300px]">
 					<h3 class="font-bold text-xl mb-2">{{ name }}</h3>
@@ -24,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+	import type { Products } from '../../interface';
 	interface Props {
 		productInfo: Products;
 	}

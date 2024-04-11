@@ -50,7 +50,11 @@
 </template>
 
 <script setup lang="ts">
-	const { showedUsers, isLoading, deleteUser } = useUsers();
+	import { useUsersStore } from '../../../store';
+
+	const userStore = useUsersStore();
+	const { deleteUser } = userStore;
+	const { showedUsers, isLoading } = storeToRefs(userStore);
 
 	const showPopupDetails = ref<boolean>(false);
 	const userData = ref({});

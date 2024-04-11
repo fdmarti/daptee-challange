@@ -23,8 +23,10 @@
 </template>
 
 <script setup lang="ts">
+	import type { User } from '../../interface'
+
 	interface Props {
-		userInfo: Users;
+		userInfo: User;
 	}
 
 	const props = defineProps<Props>();

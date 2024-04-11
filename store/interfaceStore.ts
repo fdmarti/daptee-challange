@@ -6,7 +6,7 @@ export const useInterfaceStore = defineStore('interface', {
 	}),
 
 	actions: {
-		setMessage(message: string, messageType?: string) {
+		setMessage(message: string, messageType?: string): void {
 			this.hasMessage = true;
 			this.message = message;
 
@@ -30,7 +30,7 @@ export const useInterfaceStore = defineStore('interface', {
 			}, 3000);
 		},
 
-		cleanMessageStatus() {
+		cleanMessageStatus(): void {
 			this.message = '';
 			this.hasMessage = false;
 			this.messageType = '';

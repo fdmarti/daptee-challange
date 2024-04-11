@@ -6,21 +6,28 @@
 			<li class="font-bold hover:cursor-pointer hover:opacity-50">
 				My Profile
 			</li>
-			<li class="font-bold hover:cursor-pointer hover:opacity-50" @click="handleLogOut">Logout</li>
+			<li
+				class="font-bold hover:cursor-pointer hover:opacity-50"
+				@click="handleLogOut"
+			>
+				Logout
+			</li>
 		</ul>
 	</div>
 </template>
 
 <script setup lang="ts">
-	const { logOut } = useUser();
+	import { useUserStore } from '../../store';
+
+	const { logOut } = useUserStore();
+
 	const router = useRouter();
 
-
 	const handleLogOut = () => {
-		logOut().then(resp => {
-			if ( resp ){
-				router.push('/login')
+		logOut().then((resp) => {
+			if (resp) {
+				router.push('/login');
 			}
-		})
-	}
+		});
+	};
 </script>

@@ -1,6 +1,7 @@
-import { User } from '../interface';
-import { useInterface } from '../composables';
 import { useStorage } from '@vueuse/core';
+
+import { User } from '../interface';
+import { handleAlerts, handleLogin } from '../utils';
 
 export const useUserStore = defineStore('user', {
 	state: () => ({
@@ -11,20 +12,12 @@ export const useUserStore = defineStore('user', {
 	actions: {
 		async logIn(formData) {
 			this.isLoading = true;
-			const { username, password: userPass } = formData;
 
 			try {
-				const config = useRuntimeConfig();
-				const data = await $fetch(`${config.app.NUXT_API_ULR_LOGIN}/contacts`);
-
-				const userFound = data.find((user) => {
-					if (user.username === username && user.password === userPass) {
-						return user;
-					}
-				});
+				const userFound = await handleLogin(formData);
 
 				if (!userFound) {
-					const { setMessage } = useInterface();
+					const { setMessage } = handleAlerts();
 					setMessage('Wrong Credentials', 'error');
 					return false;
 				}
@@ -36,8 +29,9 @@ export const useUserStore = defineStore('user', {
 				this.isLoading = false;
 				return true;
 			} catch (error) {
-				const { setMessage } = useInterface();
+				const { setMessage } = handleAlerts();
 				setMessage(error, 'error');
+				this.isLoading = false;
 			}
 		},
 

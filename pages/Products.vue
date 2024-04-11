@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+	import { useProductStore } from '../store';
+
 	useHead({
 		title: 'Daptee - Products',
 		meta: [
@@ -26,7 +28,7 @@
 
 	const search = ref<string>('');
 
-	const { getProducts, setProductsByFilters } = useProducts();
+	const { getProducts, setProductsByFilters } = useProductStore();
 
 	watch(search, async (newValue, _) => {
 		await setProductsByFilters(newValue);

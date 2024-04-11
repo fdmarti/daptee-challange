@@ -1,11 +1,11 @@
-import { Users } from '../interface';
-import { useInterface } from '../composables';
+import { User } from '../interface';
+import { handleAlerts, handleGetUsersData } from '../utils';
 
 export const useUsersStore = defineStore('users', {
 	state: () => ({
-		users: [] as Users[],
-		filteredUsers: [] as Users[],
-		showedUsers: [] as Users[],
+		users: [] as User[],
+		filteredUsers: [] as User[],
+		showedUsers: [] as User[],
 		valueFilter: '' as string,
 
 		pages: 1 as number,
@@ -15,27 +15,24 @@ export const useUsersStore = defineStore('users', {
 	}),
 
 	actions: {
-		async getUsers() {
+		async getUsers(): Promise<User[]> {
 			this.isLoading = true;
 
 			try {
-				const config = useRuntimeConfig();
-
-				const data = await $fetch(`${config.app.NUXT_API_ULR}/Users`);
-				this.users = data;
+				this.users = await handleGetUsersData();
 				await this.setUsersByFilters();
 
 				this.isLoading = false;
 			} catch (error) {
-				const { setMessage } = useInterface();
+				const { setMessage } = handleAlerts();
 				setMessage('Failed to load', 'error');
 				this.isLoading = false;
 			}
 		},
 
-		setUsersByFilters(filter: string = '') {
+		setUsersByFilters(filter: string = ''): void {
 			const lowerCaseFilterWord = filter.toLowerCase();
-			this.valueFilter = lowerCaseFilterWord
+			this.valueFilter = lowerCaseFilterWord;
 
 			const usersFiltered = this.users.filter((user) => {
 				const { name, email, username } = user;
@@ -54,35 +51,35 @@ export const useUsersStore = defineStore('users', {
 			this.loadUsersPerPage();
 		},
 
-		deleteUser(id: string) {
+		deleteUser(id: string): void {
 			this.users = this.users.filter((user) => {
 				if (user.id !== id) return user;
 			});
-			const { setMessage } = useInterface();
+			const { setMessage } = handleAlerts();
 			setMessage('User deleted', 'success');
 			this.setUsersByFilters(this.valueFilter);
 		},
 
-		loadUsersPerPage() {
+		loadUsersPerPage(): void {
 			const startIndex = (this.currentPage - 1) * this.usersPerPage;
 			const endIndex = startIndex + this.usersPerPage;
 
 			this.showedUsers = this.filteredUsers.slice(startIndex, endIndex);
 		},
 
-		nextPage() {
+		nextPage(): void {
 			if (this.currentPage + 1 > this.pages) return;
 			this.currentPage++;
 			this.loadUsersPerPage();
 		},
 
-		previousPage() {
+		previousPage(): void {
 			if (this.currentPage === 1) return;
 			this.currentPage--;
 			this.loadUsersPerPage();
 		},
 
-		gotToPage(page: number) {
+		gotToPage(page: number): void {
 			this.currentPage = page;
 			this.loadUsersPerPage();
 		},

@@ -6,5 +6,6 @@
 	<BasicAlert v-if="hasMessage" />
 </template>
 <script setup lang="ts">
-	const { hasMessage } = useInterface();
+	import { handleAlerts } from './utils';
+	const { hasMessage } = handleAlerts();
 </script>

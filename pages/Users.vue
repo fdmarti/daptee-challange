@@ -8,8 +8,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-	import { useUsers } from '../composables';
-	const { getUsers, setUsersByFilters } = useUsers();
+	import { useUsersStore } from '../store';
+	const { getUsers, setUsersByFilters } = useUsersStore();
 
 	useHead({
 		title: 'Daptee - Users',

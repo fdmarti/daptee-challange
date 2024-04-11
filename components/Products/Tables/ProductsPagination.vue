@@ -11,5 +11,9 @@
 	</div>
 </template>
 <script lang="ts" setup>
-	const { pages, currentPage, nextPage, previousPage, gotToPage } = useProducts();
+	import { useProductStore } from '../../../store';
+
+	const productsStore = useProductStore();
+	const { gotToPage, nextPage, previousPage } = productsStore;
+	const { pages, currentPage } = storeToRefs(productsStore);
 </script>

@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+	import { useUserStore } from '../store';
+
 	const router = useRouter();
 
 	useHead({
@@ -44,8 +46,12 @@
 		password: '',
 	});
 
-	const { logIn, isLoading } = useUser();
-	const { setMessage } = useInterface();
+	const userStore = useUserStore();
+	const { logIn } = userStore;
+	const { isLoading } = storeToRefs(userStore);
+
+	import { handleAlerts } from '../utils';
+	const { setMessage } = handleAlerts();
 
 	const handleSubmit = () => {
 		const { username, password } = formData;
