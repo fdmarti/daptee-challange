@@ -1,11 +1,13 @@
-const defineNuxtRouteMiddleware = (toNext: any) => {
-	// const currentUser = localStorage.getItem('user-daptee');
+import { useStorage } from '@vueuse/core';
 
-	// if (currentUser) {
-	// 	if (toNext.fullPath == '/Login' || toNext.fullPath == '/Register') {
-	// 		return navigateTo('/Home');
-	// 	}
-	// }
+const defineNuxtRouteMiddleware = (toNext: any) => {
+	if (process.client) {
+		const userState = useStorage('user-daptee-store');
+
+		if (userState.value) {
+			return navigateTo('/');
+		}
+	}
 };
 
 export default defineNuxtRouteMiddleware;

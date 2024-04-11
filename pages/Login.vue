@@ -18,8 +18,9 @@
 						type="password"
 						placeholder="Password"
 						v-model="formData.password"
+
 					/>
-					<BasicButton text="Sign in" />
+					<BasicButton text="Sign in" :isLoading="isLoading" />
 				</form>
 			</section>
 		</section>
@@ -28,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-	import { useUser, useInterface } from '../composables';
 	const router = useRouter();
 
 	useHead({
@@ -45,8 +45,9 @@
 		password: '',
 	});
 
-	const { logIn } = useUser();
+	const { logIn, isLoading } = useUser();
 	const { setMessage } = useInterface();
+
 
 	const handleSubmit = () => {
 		const { username, password } = formData;
@@ -57,7 +58,6 @@
 		}
 
 		logIn(formData).then((resp) => {
-			console.log(resp)
 			if (resp) {
 				router.push('/');
 			}
