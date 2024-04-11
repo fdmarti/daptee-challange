@@ -5,10 +5,11 @@
 			v-for="(_, index) in pages"
 			:numPage="index + 1"
 			@click="gotToPage(index + 1)"
+			:active="currentPage === index + 1 ? true : false"
 		/>
 		<PaginationButton numPage=">" @click="nextPage" />
 	</div>
 </template>
 <script lang="ts" setup>
-	const { pages, currentPage, nextPage, previousPage, gotToPage } = useUsers();
+	const { pages, currentPage, nextPage, previousPage, gotToPage } = useProducts();
 </script>

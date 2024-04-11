@@ -1,7 +1,11 @@
 <template>
-	<section class="max-w-[500px] mx-auto">
-		<InputText tpye="text" placeholder="Search" v-model="search" />
-	</section>
+	<div class="flex flex-col items-center gap-5 w-full">
+		<section class="max-w-[500px] w-full mx-auto">
+			<InputText tpye="text" placeholder="Search" v-model="search" />
+		</section>
+		<ProductsTable />
+		<ProductsPagination />
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -21,4 +25,14 @@
 	});
 
 	const search = ref<string>('');
+
+	const { getProducts, setProductsByFilters } = useProducts();
+
+	watch(search, async (newValue, _) => {
+		await setProductsByFilters(newValue);
+	});
+
+	onMounted(() => {
+		getProducts();
+	});
 </script>

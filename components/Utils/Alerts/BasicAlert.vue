@@ -8,6 +8,6 @@
 </template>
 
 <script setup lang="ts">
-	import { useInterface } from '../../composables';
+	import { useInterface } from '../../../composables';
 	const { hasMessage, messageType, message } = useInterface();
 </script>

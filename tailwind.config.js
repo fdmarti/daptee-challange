@@ -18,6 +18,6 @@ export default {
 		'bg-amber-500',
 		'bg-blue-500',
 		'text-cyan-600',
-		'bg-zinc-700'
+		'bg-zinc-700',
 	],
 };

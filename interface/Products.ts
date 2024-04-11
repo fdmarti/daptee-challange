@@ -1,11 +1,12 @@
 declare global {
-	interface Users {
+	interface Products {
 		createdAt: Date;
 		name: string;
-		email: string;
-		username: string;
+		description: string;
 		picture: string;
 		id: string;
+		creator: string;
+		email: string;
 	}
 }
 

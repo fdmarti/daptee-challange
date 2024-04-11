@@ -5,6 +5,8 @@ export const useUsersStore = defineStore('users', {
 	state: () => ({
 		users: [] as Users[],
 		filteredUsers: [] as Users[],
+		showedUsers: [] as Users[],
+		valueFilter: '' as string,
 
 		pages: 1 as number,
 		currentPage: 1 as number,
@@ -33,14 +35,15 @@ export const useUsersStore = defineStore('users', {
 
 		setUsersByFilters(filter: string = '') {
 			const lowerCaseFilterWord = filter.toLowerCase();
+			this.valueFilter = lowerCaseFilterWord
 
 			const usersFiltered = this.users.filter((user) => {
 				const { name, email, username } = user;
 
 				if (
-					name.toLowerCase().includes(filter) ||
-					email.toLowerCase().includes(filter) ||
-					username.toLowerCase().includes(filter)
+					name.toLowerCase().includes(lowerCaseFilterWord) ||
+					email.toLowerCase().includes(lowerCaseFilterWord) ||
+					username.toLowerCase().includes(lowerCaseFilterWord)
 				) {
 					return user;
 				}
@@ -51,13 +54,20 @@ export const useUsersStore = defineStore('users', {
 			this.loadUsersPerPage();
 		},
 
+		deleteUser(id: string) {
+			this.users = this.users.filter((user) => {
+				if (user.id !== id) return user;
+			});
+			const { setMessage } = useInterface();
+			setMessage('User deleted', 'success');
+			this.setUsersByFilters(this.valueFilter);
+		},
+
 		loadUsersPerPage() {
 			const startIndex = (this.currentPage - 1) * this.usersPerPage;
 			const endIndex = startIndex + this.usersPerPage;
 
-			console.log(startIndex,endIndex)
-
-			this.filteredUsers = this.users.slice(startIndex, endIndex);
+			this.showedUsers = this.filteredUsers.slice(startIndex, endIndex);
 		},
 
 		nextPage() {

@@ -3,8 +3,8 @@
 		<section class="max-w-[500px] w-full mx-auto">
 			<InputText tpye="text" placeholder="Search" v-model="search" />
 		</section>
-		<TableUsers />
-		<Pagination />
+		<UsersTable />
+		<UsersPagination />
 	</div>
 </template>
 <script setup lang="ts">
