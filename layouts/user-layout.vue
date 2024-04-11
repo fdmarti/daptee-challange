@@ -4,7 +4,9 @@
 			<template #fallback>
 				<h1>Loading...</h1>
 			</template>
-			<Navbar />
+			<header>
+				<Navbar />
+			</header>
 			<div class="flex">
 				<div class="bg-slate-200 relative py-7 px-3 sm:px-0 w-full">
 					<slot />

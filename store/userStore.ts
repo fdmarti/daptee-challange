@@ -11,14 +11,14 @@ export const useUserStore = defineStore('user', {
 	actions: {
 		async logIn(formData) {
 			this.isLoading = true;
-			const { username, password } = formData;
+			const { username, password: userPass } = formData;
 
 			try {
 				const config = useRuntimeConfig();
 				const data = await $fetch(`${config.app.NUXT_API_ULR_LOGIN}/contacts`);
 
 				const userFound = data.find((user) => {
-					if (user.username === username && user.password === password) {
+					if (user.username === username && user.password === userPass) {
 						return user;
 					}
 				});
@@ -30,8 +30,7 @@ export const useUserStore = defineStore('user', {
 				}
 
 				this.user = userFound;
-
-				const { id, createdAt, ...rest } = userFound;
+				const { id, password, ...rest } = userFound;
 				const userState = useStorage('user-daptee-store', rest);
 
 				this.isLoading = false;

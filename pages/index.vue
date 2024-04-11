@@ -1,7 +1,7 @@
 <template>
 	<div class="flex justify-center flex-col items-center h-[80vh]">
 		<Logo />
-		<h1 class="mt-5 text-2xl font-semibold upp">
+		<h1 class="mt-5 sm:text-2xl text-xl font-semibold upp">
 			Welcome to my amazing system
 		</h1>
 	</div>
