@@ -18,3 +18,15 @@ Una vez logueado, por ejemplo, dentro del módulo de usuarios, si refresco la pa
 Serán considerados cualquier agregado para optimizar el funcionamiento / mejorar la experiencia de usuario que cada uno considere apropiado
 Especificaciones técnicas requeridas
 Se debe realizar el desarrollo con Vue3 y Nuxt3. Se debe utilizar Composition API. Para el estilo, se puede utilizar Vuetify, o TailwindCSS, a gusto de cada uno. Además, es necesario codificar en TypeScript.
+
+
+--------------------------------------------------------------------------------------------------------------
+
+No es una buena práctica poner las peticiones dentro del store, ya sea con vuex o con pinia. Esta herramienta es un manejador de estados globales de la app, para manipular ciertos eventos y demás. Por ejemplo, el store indica a la app si tiene que mostrar un loading/spinner ya que hay un proceso corriendo (como una petición) que debe mostrar el loading. Pero no está bien poner cosas en el store que no sean de manejo de estados.
+Tampoco es considerado una buena práctica poner exportables del store en los composables. Los composables se utilizan para manipular ciertas funciones o comportamientos que se reutilizan a lo largo de la app. No tiene mucho sentido crear un composable que solamente retorne acciones del store.
+La estructura del software final en el navegador no coincide con lo pedido. Se puso el menú de "usuarios" y "productos" en el encabezado del mismo, cuando habia que ponerlo de manera lateral.
+El buscador, que debería ir en el header (donde actualmente está el menú) no está bien resuelto, ya que fue duplicado para el módulo de usuarios y de productos. Se debia utilizar uno solo y que este tenga funcionamiento diferente según si se está en usuarios o en productos para realizar la búsqueda.
+Las interfaces están bien. Sin embargo, no creo que sea correcto haber creado una de User y otra de Users. Las interfaces son como las clases. Siempre son singulares. Si se necesita de manera plural, se hace array de esa interfaz. Por ejemplo:
+const users<Array<User>> = []
+Asimismo, yo al menos, no encontré que hayas utilizado las interfaces creadas.
+El uso del logo en SVG no es correcto. Si bien lo pusiste correctamente en un componente Logo, pusiste al svg dentro del src del tag img. Eso no es correcto ya que no permite utilizar los beneficios del SVG, como cambiar tamaños, modificar sobre sus path/g, animarlo, etc. El uso correcto es mediante componente, tal como hiciste, pero en lugar del tag img, se pone el svg entero de html.
